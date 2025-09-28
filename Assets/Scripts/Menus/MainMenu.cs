@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenuEventListener : EventListener
+public class MainMenu : Menu
 {
     private MenuManager MenuManager => MenuManager.Instance;
 
     public void OnClickPlayButton()
     {
-        MenuManager.ChangeMenu(MenuManager.Menu.Gameplay);
+        MenuManager.ChangeMenu(MenuManager.MenuType.Gameplay);
     }
 
     public void OnClickHowToPlayButton()

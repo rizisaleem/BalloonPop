@@ -8,15 +8,15 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
 
-    [SerializeField] private List<EventListener> eventListeners = new List<EventListener>();
+    [SerializeField] private List<Menu> menus = new List<Menu>();
     [SerializeField] private List<View> views = new List<View>();
 
-    private Menu currentMenu;
-    private Menu prevMenu;
+    private MenuType currentMenu;
+    private MenuType prevMenu;
 
     private ViewType currentView;
 
-    public enum Menu
+    public enum MenuType
     {
         MainMenu,
         Gameplay,
@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void ChangeMenu(Menu newMenu)
+    public void ChangeMenu(MenuType newMenu)
     {
         prevMenu = currentMenu;
         currentMenu = newMenu;
@@ -58,19 +58,19 @@ public class MenuManager : MonoBehaviour
             view.gameObject.SetActive(true);
     }
 
-    public bool IsActiveState(Menu menu) => currentMenu == menu;
+    public bool IsActiveState(MenuType menu) => currentMenu == menu;
 
     public bool IsActiveState(ViewType viewType) => currentView == viewType;
 
-    public Menu GetMenuState(bool getPrev) => getPrev ? prevMenu : currentMenu;
+    public MenuType GetMenuState(bool getPrev) => getPrev ? prevMenu : currentMenu;
 
-    public T GetMenu<T>(Menu menu) where T : EventListener
+    public T GetMenu<T>(MenuType menu) where T : Menu
         => TryGetListener(menu, out var listener) ? listener as T : null;
 
     public T GetView<T>(ViewType viewType) where T : View
         => TryGetView(viewType, out var view) ? view as T : null;
 
-    private bool TryGetListener(Menu menu, out EventListener listener) => listener = eventListeners.Find(el => el.MenuType == menu);
+    private bool TryGetListener(MenuType menu, out Menu listener) => listener = menus.Find(el => el.MenuType == menu);
 
     private bool TryGetView(ViewType viewType, out View view) => view = views.Find(v => v.ViewType == viewType);
 } 
