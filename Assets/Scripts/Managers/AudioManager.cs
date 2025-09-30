@@ -38,13 +38,13 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void TurnSFXOnOff(bool turnOn)
+    public void TurnSFXOnOff(bool SFX_Sound)
     {
-        sfxEnabled = turnOn;
+        sfxEnabled = SFX_Sound;
 
         foreach (var src in sounds.Values)
         {
-            src.mute = !turnOn;
+            src.mute = !SFX_Sound;
         }
     }
 
@@ -83,18 +83,24 @@ public class AudioManager : MonoBehaviour
         return currentVolume;
     }
 
-    public void TurnMusicOnOff(bool turnOn)
+    public void TurnMusicOnOff(bool musicSound)
     {
         if (audioSource == null) return;
 
-        if (turnOn && !audioSource.isPlaying)
+        if (musicSound && !audioSource.isPlaying)
             audioSource.Play();
-        else if (!turnOn && audioSource.isPlaying)
+        else if (!musicSound && audioSource.isPlaying)
             audioSource.Stop();
     }
 
     public bool IsMusicPlaying()
     {
         return audioSource != null && audioSource.isPlaying;
+    }
+
+    public void MuteAllSounds(bool sound)
+    {
+        TurnMusicOnOff(sound);
+        TurnSFXOnOff(sound);
     }
 }

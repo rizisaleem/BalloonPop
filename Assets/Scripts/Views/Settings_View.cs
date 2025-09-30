@@ -36,7 +36,7 @@ public class Settings_View : View
     public void ToggleSoundButton()
     {
         soundCheck = !AudioManager.Instance.IsMusicPlaying();
-        AudioManager.Instance.TurnMusicOnOff(soundCheck);
+        AudioManager.Instance.MuteAllSounds(soundCheck);
         soundON.gameObject.SetActive(soundCheck);
         soundOFF.gameObject.SetActive(!soundCheck);
     }
@@ -62,6 +62,7 @@ public class Settings_View : View
 
     public void ResetHighScore()
     {
+        AudioManager.Instance.PlaySound("Click");
         PlayerPrefs.SetInt("HighScore", 0);
     }
 }

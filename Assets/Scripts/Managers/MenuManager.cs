@@ -26,7 +26,10 @@ public class MenuManager : MonoBehaviour
     {
         Settings,
         HowToPlay,
-        Credits
+        Credits,
+        Pause,
+        WinScreen,
+        EndGame
     }
 
     private void Awake()
